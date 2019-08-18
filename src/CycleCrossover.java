@@ -5,7 +5,7 @@ public class CycleCrossover {
 	
 	public int[] operate(int[] parent1, int[] parent2) {
 		int[] child = new int[parent1.length];
-		
+		// HashMap
 		HashMap<Integer, Integer> mMap = new HashMap<Integer, Integer>();
 		int time = 1;//执行循环次数
 		int currentPosition = 0;
