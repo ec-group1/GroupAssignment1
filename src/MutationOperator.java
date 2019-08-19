@@ -8,9 +8,14 @@ import java.util.ArrayList;
 public class MutationOperator {
 	
 	private int[] arrays = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+
+	private void setArrays(int[] mArrays){
+		this.arrays = mArrays;
+	}
 	private ArrayList<Integer> mArrayList = new ArrayList<Integer>();
 	
-	public MutationOperator() {
+	public MutationOperator(int[] mArrays) {
+		setArrays(mArrays);
 		setOriginalArrayList();
 	}
 	
@@ -23,7 +28,7 @@ public class MutationOperator {
 	/**
 	 * @description: implement insert method for permutation
 	 * @param pos position
-	 * @param n value
+	 * @param num value
 	 */
 	public ArrayList<Integer> insert(int pos, int num) {
 		ArrayList<Integer> permutation = new ArrayList<Integer>();
