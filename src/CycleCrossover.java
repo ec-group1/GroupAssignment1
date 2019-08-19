@@ -7,41 +7,32 @@ public class CycleCrossover {
 		int[] child = new int[parent1.length];
 		// HashMap
 		HashMap<Integer, Integer> mMap = new HashMap<Integer, Integer>();
-		int time = 1;//执行循环次数
+		int time = 1;//loop time number
 		int currentPosition = 0;
 		while(mMap.size() < parent1.length) {
-			
-			if(time % 2 != 0) {
-				/**
-				 * 获取父亲遗传序列
-				 */
-				int m = parent2[currentPosition];
-				mMap.put(currentPosition, m);
-				do {
-					//找到m在parent1中的位置
-					int i = returnPositionInP1(m, parent1);
+			int m = parent2[currentPosition];
+			mMap.put(currentPosition, m);
+			do {
+				//to find the position of m in parent1
+				int i = returnPositionInP1(m, parent1);
+				if(time % 2 != 0) {
+					/**
+					 * get parent1 genes
+					 */
 					mMap.put(i, m);
-					m = parent2[i];
-				}while(m != parent2[currentPosition]);
-			}else{
-				/**
-				 * 获取母亲遗传序列
-				 */
-				int n = parent2[currentPosition];
-				mMap.put(currentPosition, n);
-				do {
-					//找到n在parent1中的位置
-					int i = returnPositionInP1(n, parent1);
+				}else{
+					/**
+					 * get parent2 genes
+					 */
 					mMap.put(i, parent2[i]);
-					n = parent2[i];
-				}while(n != parent2[currentPosition]);
-			}
+				}
+				m = parent2[i];
+			}while(m != parent2[currentPosition]);
+
 			currentPosition = getNextPosition(mMap);
 			time ++;
 		}
-//		System.out.println(mMap.keySet().toString());
-//		System.out.println("Cycle crossover: " + mMap.values().toString());
-		
+
 		Object[] newchild = mMap.values().toArray();
 		for(int t = 0; t < parent1.length; t++) {
 			child[t] = Integer.parseInt(newchild[t] + "");
@@ -50,7 +41,7 @@ public class CycleCrossover {
 	}
 	
 	/**
-	 * 获取下一个即将进行遍历的位置
+	 * get next position which needs to be operated
 	 * @param mMap
 	 * @return
 	 */
