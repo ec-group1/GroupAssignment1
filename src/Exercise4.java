@@ -11,11 +11,15 @@ public class Exercise4 {
     public static void main(String[] args){
         int[] array = {1, 2, 3, 4, 5, 6, 7, 8, 9};
 
+        System.out.print("Mutation array: ");
+        for(int i = 0; i < array.length; i ++) {
+            System.out.print(array[i] + ",");
+        }
         /**
          * 4.1.1 insert
          */
+        System.out.print("\nMutation insert");
         int[] child = mutationInsert(array, 2, 5);
-        System.out.println("Mutation insert:");
         for(int i = 0; i < child.length; i ++) {
             System.out.print(child[i] + ",");
         }
@@ -24,8 +28,8 @@ public class Exercise4 {
         /**
          * 4.1.2 swap
          */
+        System.out.print("Mutation swap");
         child = mutationSwap(array, 2, 5);
-        System.out.println("Mutation swap:");
         for(int i = 0; i < child.length; i ++) {
             System.out.print(child[i] + ",");
         }
@@ -34,8 +38,8 @@ public class Exercise4 {
         /**
          * 4.1.3 inversion
          */
+        System.out.print("Mutation inversion");
         child = mutationInversion(array, 2, 5);
-        System.out.println("Mutation inversion:");
         for(int i = 0; i < child.length; i ++) {
             System.out.print(child[i] + ",");
         }
@@ -109,6 +113,7 @@ public class Exercise4 {
     public static int[] mutationInsert(int[] parent, int pos1, int pos2){
         ArrayList<Integer> mArrayList = setOriginalArrayList(parent);
 
+        System.out.println("("+pos1 + ", " +  pos2 + "): ");
         ArrayList<Integer> permutation = new ArrayList<Integer>();
         int numInPos2 = mArrayList.remove(pos2 -1);
         if(pos1 < pos2) {
@@ -147,6 +152,7 @@ public class Exercise4 {
      * @return
      */
     public static int[] mutationSwap(int[] parent, int pos1, int pos2){
+        System.out.println("("+pos1 + ", " +  pos2 + "): ");
         if(pos1 > pos2) {
             int t = pos1;
             pos1 = pos2;
@@ -182,6 +188,7 @@ public class Exercise4 {
      * @return
      */
     public static int[] mutationInversion(int[] parent, int pos1, int pos2) {
+        System.out.println("("+pos1 + ", " +  pos2 + "): ");
         if(pos1 > pos2) {
             int t = pos1;
             pos1 = pos2;
@@ -445,7 +452,7 @@ public class Exercise4 {
     public static int getNextPosition(HashMap<Integer, Integer> mMap) {
         int key = -1;
         Iterator<Integer> it = mMap.keySet().iterator();
-        while(it.hasNext()){  // 迭代器遍历
+        while(it.hasNext()){  // loop
             int next = it.next();
             if(key + 1 != next) {
                 return key + 1;
