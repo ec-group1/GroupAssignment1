@@ -161,7 +161,7 @@ public class CrossOver {
             current = newCurrent;
             newSolu.add(table[current]);
         }
-        System.out.println("  ");
+        //System.out.println("  ");
 
         TSPsolution newTs = new TSPsolution(s1);
         //System.out.println(" size " + newSolu.size());

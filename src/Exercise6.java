@@ -321,6 +321,7 @@ public class Exercise6 {
                 bestSolutionsSet.remove(bestSolutionsSet.size()-1);
             }
         }
+        System.out.println(bestSolutionsSet.getFirst() + "  " + bestSolutionsSet.getLast());
         newSolutionsSet.clear();
     }
 
