@@ -1,3 +1,4 @@
+
 import java.util.HashMap;
 
 /**
@@ -8,13 +9,13 @@ import java.util.HashMap;
 public class PMXCrossover {
 	
 	
-	private HashMap<Integer, Integer> mMap = new HashMap<Integer, Integer>();
-	private String codeGen = "";
+	private static HashMap<Double, Double> mMap = new HashMap<Double, Double>();
+	private static String codeGen = "";
 	
 	/**
 	 * implement PMX method for permutations
 	 */
-	public int[] operate(int[] parent1, int[] parent2) {
+	public static double[] operate(double[] parent1, double[] parent2) {
 		int pos1 = 1 + (int) (Math.random() * parent1.length);
 		int pos2 = 1 + (int)(Math.random() * parent1.length);
 		
@@ -30,7 +31,7 @@ public class PMXCrossover {
 			mMap.put(parent1[i], parent2[i]);
 			codeGen += parent1[i];
 		}
-		int[] child = new int[parent1.length];
+		double[] child = new double[parent1.length];
 		for(int i = 0; i < pos1 -1; i ++) {
 			if(!codeGen.contains(parent2[i] + "")) {
 				child[i] = parent2[i];
@@ -52,8 +53,8 @@ public class PMXCrossover {
 	}
 	
 	
-	private Integer getMappingNum(Integer num) {
-		Integer mappingNum = mMap.get(num);
+	private static double getMappingNum(double num) {
+		double mappingNum = mMap.get(num);
 		if(!codeGen.contains(mappingNum + "")) {
 			return mappingNum;
 		}else {

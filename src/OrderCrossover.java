@@ -1,3 +1,5 @@
+
+
 import java.util.HashMap;
 import java.util.LinkedList;
 
@@ -6,7 +8,7 @@ public class OrderCrossover {
 	/**
 	 * implement order method for permutations
 	 */
-	public int[] operate(int[] parent1, int[] parent2) {
+	public static double[] operate(double[] parent1, double[] parent2) {
 		int pos1 = 1 + (int) (Math.random() * parent1.length);
 		int pos2 = 1 + (int)(Math.random() * parent1.length);
 		
@@ -17,17 +19,17 @@ public class OrderCrossover {
 		}
 		System.out.println("Order crossover: select random position from " + pos1 + " to " + pos2);
 		//to make a new array in order crossover
-		int[] child = new int[parent1.length];
+		double[] child = new double[parent1.length];
 		
 		//get P1 random part
 		String codeGen = "";
-		HashMap<Integer, Integer> mMap = new HashMap<Integer, Integer>();
+		HashMap<Double, Double> mMap = new HashMap<Double, Double>();
 		for(int i = pos1 -1; i < pos2; i ++) {
 			mMap.put(parent1[i], parent2[i]);
 			codeGen += parent1[i];
 		}
 		//store order elements
-		LinkedList<Integer> mOrderList = new LinkedList<>();
+		LinkedList<Double> mOrderList = new LinkedList<>();
 		for(int i = pos2; i < parent2.length; i ++) {
 			mOrderList.add(parent2[i]);
 		}
