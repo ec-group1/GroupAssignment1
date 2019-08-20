@@ -8,6 +8,7 @@ public class OrderCrossover {
 	/**
 	 * implement order method for permutations
 	 */
+	//
 	public static double[] operate(double[] parent1, double[] parent2) {
 		int pos1 = 1 + (int) (Math.random() * parent1.length);
 		int pos2 = 1 + (int)(Math.random() * parent1.length);
@@ -16,6 +17,10 @@ public class OrderCrossover {
 			int t = pos1;
 			pos1 = pos2;
 			pos2 = t;
+		}
+
+		for(int i =0; i < parent1.length; i ++){
+			System.out.println(parent1[i] + "---" + parent2[i] + ", ");
 		}
 		System.out.println("Order crossover: select random position from " + pos1 + " to " + pos2);
 		//to make a new array in order crossover
@@ -47,6 +52,7 @@ public class OrderCrossover {
 			}else {
 				do {
 					j ++;
+					System.out.print(j + " j ");
 				}while(codeGen.contains(mOrderList.get(j) + ""));
 					child[i] = mOrderList.get(j);
 			}
@@ -57,18 +63,23 @@ public class OrderCrossover {
 		}
 		
 		for(int i = 0, j = pos + 1; 
-				i < pos1 - 1 && j < parent1.length; 
+				i < pos1 - 1 && j < parent1.length;
 				i ++, j ++) {
 			if(!codeGen.contains(mOrderList.get(j) + "")) {
 				child[i] = mOrderList.get(j);
 				codeGen += child[i];
 			}else {
+
+				double m = 0;
 				do {
 					j ++;
-				}while(codeGen.contains(mOrderList.get(j) + ""));
-					child[i] = mOrderList.get(j);
+					m = mOrderList.get(j);
+					System.out.print(j + " ");
+				}while(codeGen.contains(m + "") && j < parent1.length -1);
+				child[i] = mOrderList.get(j);
 			}
 		}
+		System.out.println("order crossover====== over");
 		return child;
 	}
 

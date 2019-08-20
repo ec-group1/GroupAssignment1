@@ -21,8 +21,8 @@ public class Exercise6 {
     static double[][] initial2;
 
     public static void main(String[] args) throws IOException {
-        initial1 = Exercise1.getData("eil51.tsp");
-        initial2 = Exercise1.getData("eil51.tsp");
+        initial1 = Exercise1.getData("usa13509.tsp");
+        initial2 = Exercise1.getData("usa13509.tsp");
         TSPsolution s1 = createSolution(initial1);
         TSPsolution s2 = createSolution(initial2);
         s1 = calculateDistance(s1);
@@ -48,7 +48,7 @@ public class Exercise6 {
     public static void Method1(){
         for(int i = 0; i < iterations; i++){
             newSolutionsSet.clear();
-            for (int j = 0; j < 3; j++){                // averagely create 9 new solutions based 3 mutations
+            for (int j = 0; j < 3; j++){                // averagely create 9 new solutions based 3 mutations   //在这调解集数量
                 TSPsolution ts1 = mutationInsert(bestSolutionsSet.getFirst());
                 //System.out.println(ts1.totalDistance);
                 //for (int k = 0; k < ts1.order.length; k++){
@@ -74,31 +74,32 @@ public class Exercise6 {
             chooseBestTwo();
             //System.out.println(" mid Iteration " + i + " distance result:" + bestSolutionsSet.getFirst().totalDistance);
             //System.out.println(" mid Iteration " + i + " distance result:" + bestSolutionsSet.get(1).totalDistance);
-            for (int j = 0; j < 2; j++){
+            for (int j = 0; j < 2; j++){                    //在这调解集数量
                 TSPsolution ts1 = CrossOver.crossoverEdgeRecombination(bestSolutionsSet.getFirst(), bestSolutionsSet.get(1));
                 //for (int k = 0; k < ts1.order.length; k++){
                 //    System.out.print( ts1.order[k][0] + " "); //+ "  " + ts1.order[j][1] + "  " + ts1.order[j][2] + "  ///// ");
                 //}
                 //System.out.println(" ");
                 newSolutionsSet.add(ts1);
-                TSPsolution ts2 = changeToTspObject(PMXCrossover.operate(changeToSingleColume(bestSolutionsSet.getFirst().order), changeToSingleColume(bestSolutionsSet.get(1).order)));
+                //double[] ts01 = OrderCrossover.operate(changeToSingleColume(bestSolutionsSet.getFirst().order), changeToSingleColume(bestSolutionsSet.get(1).order));
+                TSPsolution ts2 = CrossOver.crossoverEdgeRecombination(bestSolutionsSet.getFirst(), bestSolutionsSet.get(1));//changeToTspObject(PMXCrossover.operate(changeToSingleColume(bestSolutionsSet.getFirst().order), changeToSingleColume(bestSolutionsSet.get(1).order)));
                 //for (int k = 0; k < ts2.order.length; k++){
                 //   System.out.print( ts2.order[k][0] + " "); //+ "  " + ts1.order[j][1] + "  " + ts1.order[j][2] + "  ///// ");
                 //}
                 //System.out.println(" ");
                 newSolutionsSet.add(ts2);
-                TSPsolution ts3 = changeToTspObject(OrderCrossover.operate(changeToSingleColume(bestSolutionsSet.getFirst().order), changeToSingleColume(bestSolutionsSet.get(1).order)));
+                TSPsolution ts3 = CrossOver.crossoverEdgeRecombination(bestSolutionsSet.getFirst(), bestSolutionsSet.get(1));//changeToTspObject(OrderCrossover.operate(changeToSingleColume(bestSolutionsSet.getFirst().order), changeToSingleColume(bestSolutionsSet.get(1).order)));
                 //for (int k = 0; k < ts3.order.length; k++){
                 //    System.out.print( ts3.order[k][0] + " "); //+ "  " + ts1.order[j][1] + "  " + ts1.order[j][2] + "  ///// ");
                 //}
                 //System.out.println(" ");
                 newSolutionsSet.add(ts3);
-                TSPsolution ts4 = changeToTspObject(CycleCrossover.operate(changeToSingleColume(bestSolutionsSet.getFirst().order), changeToSingleColume(bestSolutionsSet.get(1).order)));
+                //TSPsolution ts4 = changeToTspObject(CycleCrossover.operate(changeToSingleColume(bestSolutionsSet.getFirst().order), changeToSingleColume(bestSolutionsSet.get(1).order)));
                 //for (int k = 0; k < ts4.order.length; k++){
                 //    System.out.print( ts4.order[k][0] + " "); //+ "  " + ts1.order[j][1] + "  " + ts1.order[j][2] + "  ///// ");
                 //}
                 //System.out.println(" ");
-                newSolutionsSet.add(ts4);
+                //newSolutionsSet.add(ts4);
             }
             chooseBestOne();
             System.out.println("Iteration " + i + " distance result:" + bestSolutionsSet.getFirst().totalDistance);
@@ -110,8 +111,8 @@ public class Exercise6 {
         int chooseParent;
         for (int i = 0; i < iterations; i++){
             newSolutionsSet.clear();
-            for (int j = 0; j < 17; j ++){
-                action = (int)(Math.random() * 7);
+            for (int j = 0; j < 3; j ++){   //在这调解集数量
+                action = (int)(Math.random() * 6);
                 chooseParent = (int)(Math.random());
                 switch (action){
                     case 0:
@@ -127,14 +128,14 @@ public class Exercise6 {
                         TSPsolution ts3 = CrossOver.crossoverEdgeRecombination(bestSolutionsSet.getFirst(), bestSolutionsSet.get(1));
                         newSolutionsSet.add(ts3);
                     case 4:
-                        TSPsolution ts4 = changeToTspObject(PMXCrossover.operate(changeToSingleColume(bestSolutionsSet.getFirst().order), changeToSingleColume(bestSolutionsSet.get(1).order)));
+                        TSPsolution ts4 = CrossOver.crossoverEdgeRecombination(bestSolutionsSet.getFirst(), bestSolutionsSet.get(1));//changeToTspObject(PMXCrossover.operate(changeToSingleColume(bestSolutionsSet.getFirst().order), changeToSingleColume(bestSolutionsSet.get(1).order)));
                         newSolutionsSet.add(ts4);
                     case 5:
-                        TSPsolution ts5 = changeToTspObject(OrderCrossover.operate(changeToSingleColume(bestSolutionsSet.getFirst().order), changeToSingleColume(bestSolutionsSet.get(1).order)));
+                        TSPsolution ts5 = CrossOver.crossoverEdgeRecombination(bestSolutionsSet.getFirst(), bestSolutionsSet.get(1));//changeToTspObject(OrderCrossover.operate(changeToSingleColume(bestSolutionsSet.getFirst().order), changeToSingleColume(bestSolutionsSet.get(1).order)));
                         newSolutionsSet.add(ts5);
-                    case 6:
-                        TSPsolution ts6 = changeToTspObject(CycleCrossover.operate(changeToSingleColume(bestSolutionsSet.getFirst().order), changeToSingleColume(bestSolutionsSet.get(1).order)));
-                        newSolutionsSet.add(ts6);
+                    //case 6:
+                    //    TSPsolution ts6 = changeToTspObject(CycleCrossover.operate(changeToSingleColume(bestSolutionsSet.getFirst().order), changeToSingleColume(bestSolutionsSet.get(1).order)));
+                    //    newSolutionsSet.add(ts6);
                 }
             }
             chooseBestTwo();
@@ -176,7 +177,7 @@ public class Exercise6 {
                 if (advanDistance3.size() > 5) {
                     advanDistance3.remove(0);
                 }
-                TSPsolution ts4 = CrossOver.crossoverEdgeRecombination(bestSolutionsSet.getFirst(), bestSolutionsSet.get(1));//changeToTspObject(PMXCrossover.operate(changeToSingleColume(bestSolutionsSet.getFirst().order), changeToSingleColume(bestSolutionsSet.get(1).order)));
+                TSPsolution ts4 = mutationInsert(bestSolutionsSet.get(chooseParent));//changeToTspObject(PMXCrossover.operate(changeToSingleColume(bestSolutionsSet.getFirst().order), changeToSingleColume(bestSolutionsSet.get(1).order)));
                 newSolutionsSet.add(ts4);
                 advanDistance4.add(new solutionAdvantageDistance(bestSolutionsSet.get(chooseParent).totalDistance - newSolutionsSet.getLast().totalDistance));
                 if (advanDistance4.size() > 5) {
@@ -189,14 +190,14 @@ public class Exercise6 {
                     advanDistance5.remove(0);
                 }
 
-                TSPsolution ts6 = CrossOver.crossoverEdgeRecombination(bestSolutionsSet.getFirst(), bestSolutionsSet.get(1));//changeToTspObject(OrderCrossover.operate(changeToSingleColume(bestSolutionsSet.getFirst().order), changeToSingleColume(bestSolutionsSet.get(1).order)));
+                TSPsolution ts6 = mutationSwap(bestSolutionsSet.get(chooseParent));//changeToTspObject(OrderCrossover.operate(changeToSingleColume(bestSolutionsSet.getFirst().order), changeToSingleColume(bestSolutionsSet.get(1).order)));
                 newSolutionsSet.add(ts6);
                 advanDistance6.add(new solutionAdvantageDistance(bestSolutionsSet.get(chooseParent).totalDistance - newSolutionsSet.getLast().totalDistance));
                 if (advanDistance6.size() > 5) {
                     advanDistance6.remove(0);
                 }
             }else {
-                for (int j = 0; j < 17; j ++){
+                for (int j = 0; j < 17; j ++){          //在这调解集数量
                     action = softmaxChooseAction();
                     //System.out.println("choose the action:" + action);
                     chooseParent = (int)(Math.random());
@@ -491,8 +492,8 @@ public class Exercise6 {
         double[][] r1 = new double[d.length][3];
         for (int i = 0; i < d.length; i++){
             r1[i][0] = d[i];
-            r1[i][1] = initial1[(int)d[i]][1];
-            r1[i][2] = initial1[(int)d[i]][2];
+            r1[i][1] = initial1[(int)d[i]][0];
+            r1[i][2] = initial1[(int)d[i]][1];
         }
         TSPsolution ts1 = new TSPsolution(r1);
         ts1 = calculateDistance(ts1);
