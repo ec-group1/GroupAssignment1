@@ -3,6 +3,8 @@ import java.util.Iterator;
 
 public class CycleCrossover {
 
+
+	/////////liuyixuan
 	public int[] operate(int[] parent1, int[] parent2) {
 		int[] child = new int[parent1.length];
 		// HashMap
