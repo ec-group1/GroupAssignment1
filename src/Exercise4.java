@@ -42,13 +42,18 @@ public class Exercise4 {
         System.out.println();
 
 
+        // crossover operated array
+        int[] a = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+        int[] b = {9, 3, 7, 8, 2, 6, 5, 1, 4};
+
         /**
          * 4.2.1 order crossover
          */
-        int[] a = {1, 2, 3, 4, 5, 6, 7, 8, 9};
-        int[] b = {9, 3, 7, 8, 2, 6, 5, 1, 4};
         child = orderCrossover(a, b);
         for(int i = 0; i < child.length; i ++) {
+            if(i == 0){
+                System.out.print("child: ");
+            }
             System.out.print(child[i] + ",");
         }
         System.out.println();
@@ -59,6 +64,9 @@ public class Exercise4 {
          */
         child =  pmxCrossover(a, b);
         for(int i = 0; i < child.length; i ++) {
+            if(i == 0){
+                System.out.print("child: ");
+            }
             System.out.print(child[i] + ",");
         }
         System.out.println();
@@ -68,13 +76,13 @@ public class Exercise4 {
          */
         child =  cycleCrossover(a, b);
         for(int i = 0; i < child.length; i ++) {
+            if(i == 0){
+                System.out.print("child: ");
+            }
             System.out.print(child[i] + ",");
         }
         System.out.println();
     }
-
-
-
 
 
     /**
@@ -91,6 +99,7 @@ public class Exercise4 {
     }
 
     /**
+     * 4.1.1 insert
      * @describe move element from pos2 following pos1
      * @param parent
      * @param pos1
@@ -131,7 +140,7 @@ public class Exercise4 {
 
 
     /**
-     * swap
+     * 4.1.2 swap
      * @describe exchange the elements of pos1 & pos2
      * @param pos1
      * @param pos2
@@ -166,7 +175,7 @@ public class Exercise4 {
     }
 
     /**
-     * implement inversion method for permutation
+     * 4.1.3 inversion
      * @describe order elements between pos1 and pos2
      * @param pos1
      * @param pos2
@@ -197,8 +206,8 @@ public class Exercise4 {
         return child;
     }
 
-
     /**
+     * 4.2.1 order crossover
      * implement order method for permutations
      * @param parent1
      * @param parent2
@@ -214,7 +223,17 @@ public class Exercise4 {
             pos2 = t;
         }
 
-        System.out.println("Order crossover: select random position from " + pos1 + " to " + pos2);
+        System.out.print("\nOrder crossover:\nparent1: ");
+        for(int i = 0; i < parent1.length; i ++) {
+            System.out.print(parent1[i] + ",");
+        }
+
+        System.out.print("\nparent2: ");
+        for(int i = 0; i < parent2.length; i ++) {
+            System.out.print(parent2[i] + ",");
+        }
+
+        System.out.println("\nselect random position from " + pos1 + " to " + pos2);
         //to make a new array in order crossover
         int[] child = new int[parent1.length];
 
@@ -275,8 +294,13 @@ public class Exercise4 {
 
     private static HashMap<Integer, Integer> mMapForPMX = new HashMap<Integer, Integer>();
     private static String codeGenForPMX = "";
+
     /**
+     * 4.2.2 PMX crossover
      * implement PMX method for permutations
+     * @param parent1
+     * @param parent2
+     * @return
      */
     public static int[] pmxCrossover(int[] parent1, int[] parent2) {
         int pos1 = 1 + (int) (Math.random() * parent1.length);
@@ -287,9 +311,21 @@ public class Exercise4 {
             pos1 = pos2;
             pos2 = t;
         }
-        System.out.println("PMX crossover: select random position from " + pos1 + " to " + pos2);
+
+        System.out.print("\nPMX crossover:\nparent1: ");
+        for(int i = 0; i < parent1.length; i ++) {
+            System.out.print(parent1[i] + ",");
+        }
+
+        System.out.print("\nparent2: ");
+        for(int i = 0; i < parent2.length; i ++) {
+            System.out.print(parent2[i] + ",");
+        }
+
+        System.out.println("\nselect random position from " + pos1 + " to " + pos2);
 
         codeGenForPMX = "";
+        mMapForPMX = new HashMap<>();
         for(int i = pos1 -1; i < pos2; i ++) {
             mMapForPMX.put(parent1[i], parent2[i]);
             codeGenForPMX += parent1[i];
@@ -318,6 +354,11 @@ public class Exercise4 {
     }
 
 
+    /**
+     * get mapping arrays
+     * @param num
+     * @return
+     */
     private static int getMappingNum(int num) {
         try {
             int mappingNum = mMapForPMX.get(num);
@@ -334,7 +375,7 @@ public class Exercise4 {
 
 
     /**
-     * cycleCrossover
+     * 4.2.3 cycle crossover
      * @param parent1
      * @param parent2
      * @return
@@ -342,11 +383,20 @@ public class Exercise4 {
     public static int[] cycleCrossover(int[] parent1, int[] parent2) {
         int[] child = new int[parent1.length];
 
-        System.out.println("Cycle crossover:");
-        HashMap<Integer, Integer> mMap = new HashMap<Integer, Integer>();
+        System.out.print("\nCycle crossover:\nparent1: ");
+        for(int d = 0; d < parent1.length; d ++) {
+            System.out.print(parent1[d] + ",");
+        }
+        System.out.print("\nparent2: ");
+        for(int d = 0; d < parent2.length; d ++) {
+            System.out.print(parent2[d] + ",");
+        }
+        System.out.println();
+
+        HashMap<Integer, Integer> mMap = new HashMap<>();
         int time = 1;//执行循环次数
         int currentPosition = 0;
-        while(time < parent1.length) {
+        while(mMap.size() < parent1.length) {
 
             if(time % 2 != 0) {
                 /**
@@ -379,6 +429,7 @@ public class Exercise4 {
 
 
         }
+//        System.out.println("mMap: " + mMap.toString());
         Object[] newchild = mMap.values().toArray();
         for(int t = 0; t < parent1.length; t++) {
             child[t] = Integer.parseInt(newchild[t] + "");
@@ -387,7 +438,7 @@ public class Exercise4 {
     }
 
     /**
-     * 获取下一个即将进行遍历的位置
+     * get next position which needs to be operated
      * @param mMap
      * @return
      */
