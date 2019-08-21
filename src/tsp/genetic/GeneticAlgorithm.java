@@ -21,6 +21,12 @@ public class GeneticAlgorithm {
         }
         return getBest(list);
     }
+
+
+    /**
+     * add
+     * @param list
+     */
     void createBeginningSpecies(SpeciesPopulation list)
     {
         int randomNum=(int)(TSPData.SPECIES_NUM);
