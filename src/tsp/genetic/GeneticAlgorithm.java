@@ -24,7 +24,7 @@ public class GeneticAlgorithm {
 
 
     /**
-     * add
+     * addhhh
      * @param list
      */
     void createBeginningSpecies(SpeciesPopulation list)
