@@ -1,4 +1,4 @@
-package GeneticTSP;
+package tsp.genetic;
 public class MainRun {
     public static void main(String[] args) {
         GeneticAlgorithm GA=new GeneticAlgorithm();

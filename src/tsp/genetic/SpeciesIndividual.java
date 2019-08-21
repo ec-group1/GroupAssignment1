@@ -1,4 +1,4 @@
-package GeneticTSP;
+package tsp.genetic;
 import java.util.Random;
 public class SpeciesIndividual {
     String[] genes;

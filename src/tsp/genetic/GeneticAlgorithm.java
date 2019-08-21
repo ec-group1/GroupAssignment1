@@ -1,4 +1,4 @@
-package GeneticTSP;
+package tsp.genetic;
 import java.util.Random;
 /**
  *      1.run

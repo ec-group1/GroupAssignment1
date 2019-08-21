@@ -1,4 +1,4 @@
-package GeneticTSP;
+package tsp.genetic;
 public class TSPData {
     static int CITY_NUM;
     static final int SPECIES_NUM=50;

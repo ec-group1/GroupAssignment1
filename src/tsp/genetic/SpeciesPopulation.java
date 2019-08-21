@@ -1,4 +1,4 @@
-package GeneticTSP;
+package tsp.genetic;
 public class SpeciesPopulation {
     SpeciesIndividual head;
     int speciesNum;
