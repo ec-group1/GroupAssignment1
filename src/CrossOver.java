@@ -82,6 +82,23 @@ public class CrossOver {
         return table;
     }
 
+    public static int[] edgeRecombinationSample(int[] a, int[] b){
+        double[] a1 = new double[a.length];
+        double[] b1 = new double[b.length];
+        for (int i = 0; i < a.length; i++){
+            a1[i] = (double)(a[i]);
+            b1[i] = (double)(b[i]);
+        }
+        TSPsolution s1 = new TSPsolution(a1);
+        TSPsolution s2 = new TSPsolution(b1);
+        TSPsolution s3 = crossoverEdgeRecombination(s1, s2);
+        int[] order = new int[a.length];
+        for (int i = 0; i < a.length; i++){
+            order[i] = (int)s3.order[i][0];
+        }
+        return order;
+    }
+
     public static TSPsolution crossoverEdgeRecombination(TSPsolution s1, TSPsolution s2){
         int[] useWhenLoseTraction = new int[s1.order.length];
         element[] table = createTable(s1, s2);

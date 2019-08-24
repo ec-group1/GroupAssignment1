@@ -4,10 +4,11 @@ import java.util.LinkedList;
 // method3, choose operation based on history. the chance of each operation = average enhanced Distance / total average enhanced Distance
 
 public class Exercise6 {
-    static int iterations = 1000;           // optimization iterations
-    static int algorithm = 2;               // the parameter choose to execute different algorithms 1: mutation and crossover together, 2: randomly mutation or crossover, 3: choose operation based on history.
-    static LinkedList<TSPsolution> newSolutionsSet = new LinkedList<>();
-    static LinkedList<TSPsolution> bestSolutionsSet = new LinkedList<>();
+    static int iterations = 1000;           // total optimization iterations
+    static int algorithm = 2;               // the parameter choose to execute different algorithms 0: mutation and crossover together, 1: randomly mutation or crossover, 2: choose operation based on history.
+    static String fileName = "usa13509";    // test file name
+    static LinkedList<TSPsolution> newSolutionsSet = new LinkedList<>();    // list for offspring
+    static LinkedList<TSPsolution> bestSolutionsSet = new LinkedList<>();   // list for parents
 
     static LinkedList<solutionAdvantageDistance> advanDistance0 = new LinkedList<>();
     static LinkedList<solutionAdvantageDistance> advanDistance1 = new LinkedList<>();
@@ -21,8 +22,8 @@ public class Exercise6 {
     static double[][] initial2;
 
     public static void main(String[] args) throws IOException {
-        initial1 = Exercise1.getData("usa13509.tsp");
-        initial2 = Exercise1.getData("usa13509.tsp");
+        initial1 = Exercise1.getData(fileName);
+        initial2 = Exercise1.getData(fileName);
         TSPsolution s1 = createSolution(initial1);
         TSPsolution s2 = createSolution(initial2);
         s1 = calculateDistance(s1);
@@ -48,51 +49,21 @@ public class Exercise6 {
     public static void Method1(){
         for(int i = 0; i < iterations; i++){
             newSolutionsSet.clear();
-            for (int j = 0; j < 3; j++){                // averagely create 9 new solutions based 3 mutations   //在这调解集数量
+            for (int j = 0; j < 3; j++){                // averagely create 9 new solutions based 3 mutations, change the population size here
                 TSPsolution ts1 = mutationInsert(bestSolutionsSet.getFirst());
-                //System.out.println(ts1.totalDistance);
-                //for (int k = 0; k < ts1.order.length; k++){
-                //    System.out.print( ts1.order[k][0] + " "); //+ "  " + ts1.order[j][1] + "  " + ts1.order[j][2] + "  ///// ");
-                //}
-                //System.out.println(" ");
                 newSolutionsSet.add(ts1);
                 TSPsolution ts2 = mutationSwap(bestSolutionsSet.getFirst());
-                //System.out.println(ts2.totalDistance);
-                //for (int k = 0; k < ts2.order.length; k++){
-                //    System.out.print( ts2.order[k][0] + " "); //+ "  " + ts1.order[j][1] + "  " + ts1.order[j][2] + "  ///// ");
-                //}
-                //System.out.println(" ");
                 newSolutionsSet.add(ts2);
                 TSPsolution ts3 = mutationInversion(bestSolutionsSet.getFirst());
-                //for (int k = 0; k < ts3.order.length; k++){
-                //    System.out.print( ts3.order[k][0] + " "); //+ "  " + ts1.order[j][1] + "  " + ts1.order[j][2] + "  ///// ");
-                //}
-                //System.out.println(" ");
-                //System.out.println(ts3.totalDistance);
                 newSolutionsSet.add(ts3);
             }
             chooseBestTwo();
-            //System.out.println(" mid Iteration " + i + " distance result:" + bestSolutionsSet.getFirst().totalDistance);
-            //System.out.println(" mid Iteration " + i + " distance result:" + bestSolutionsSet.get(1).totalDistance);
-            for (int j = 0; j < 2; j++){                    //在这调解集数量
+            for (int j = 0; j < 2; j++){                // crossover
                 TSPsolution ts1 = CrossOver.crossoverEdgeRecombination(bestSolutionsSet.getFirst(), bestSolutionsSet.get(1));
-                //for (int k = 0; k < ts1.order.length; k++){
-                //    System.out.print( ts1.order[k][0] + " "); //+ "  " + ts1.order[j][1] + "  " + ts1.order[j][2] + "  ///// ");
-                //}
-                //System.out.println(" ");
                 newSolutionsSet.add(ts1);
-                //double[] ts01 = OrderCrossover.operate(changeToSingleColume(bestSolutionsSet.getFirst().order), changeToSingleColume(bestSolutionsSet.get(1).order));
                 TSPsolution ts2 = CrossOver.crossoverEdgeRecombination(bestSolutionsSet.getFirst(), bestSolutionsSet.get(1));//changeToTspObject(PMXCrossover.operate(changeToSingleColume(bestSolutionsSet.getFirst().order), changeToSingleColume(bestSolutionsSet.get(1).order)));
-                //for (int k = 0; k < ts2.order.length; k++){
-                //   System.out.print( ts2.order[k][0] + " "); //+ "  " + ts1.order[j][1] + "  " + ts1.order[j][2] + "  ///// ");
-                //}
-                //System.out.println(" ");
                 newSolutionsSet.add(ts2);
                 TSPsolution ts3 = CrossOver.crossoverEdgeRecombination(bestSolutionsSet.getFirst(), bestSolutionsSet.get(1));//changeToTspObject(OrderCrossover.operate(changeToSingleColume(bestSolutionsSet.getFirst().order), changeToSingleColume(bestSolutionsSet.get(1).order)));
-                //for (int k = 0; k < ts3.order.length; k++){
-                //    System.out.print( ts3.order[k][0] + " "); //+ "  " + ts1.order[j][1] + "  " + ts1.order[j][2] + "  ///// ");
-                //}
-                //System.out.println(" ");
                 newSolutionsSet.add(ts3);
                 //TSPsolution ts4 = changeToTspObject(CycleCrossover.operate(changeToSingleColume(bestSolutionsSet.getFirst().order), changeToSingleColume(bestSolutionsSet.get(1).order)));
                 //for (int k = 0; k < ts4.order.length; k++){
@@ -521,6 +492,13 @@ class TSPsolution{
             this.order[i][0] = t.order[i][0];
             this.order[i][1] = t.order[i][1];
             this.order[i][2] = t.order[i][2];
+        }
+    }
+
+    public TSPsolution(double[] a){
+        this.order = new double[a.length][3];
+        for (int i = 0; i < a.length; i++){
+            this.order[i][0] = a[i];
         }
     }
 }
